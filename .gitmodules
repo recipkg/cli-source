@@ -1,0 +1,9 @@
+[submodule "src/recipkg/data/skills/migrate-to-recipkg"]
+	path = src/recipkg/data/skills/migrate-to-recipkg
+	url = https://github.com/recipkg/migrate-to-recipkg.git
+[submodule "src/recipkg/data/skills/rewrite-to-recipkg"]
+	path = src/recipkg/data/skills/rewrite-to-recipkg
+	url = https://github.com/recipkg/rewrite-to-recipkg.git
+[submodule "src/recipkg/data/skills/test-feedback"]
+	path = src/recipkg/data/skills/test-feedback
+	url = https://github.com/recipkg/test-feedback.git
