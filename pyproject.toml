@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "recipkg"
-version = "0.1.0"
+version = "0.1.1"
 description = "Markdown-only software recipes and standardized prompts for any coding agent"
 readme = "README.md"
 requires-python = ">=3.11"

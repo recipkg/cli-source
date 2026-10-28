@@ -19,6 +19,8 @@ recipkg skills list
 
 The five action commands print prompts, without calling a model or executing software. `search` explicitly queries public GitHub repositories with the `recipkg` topic; candidates still need recipe validation. Prompt language changes the task template, never the original recipe material. Public skills include English and Simplified Chinese instructions.
 
+`skills project add`, `list`, and `update` manage full project skills as pinned Git submodules, including scripts and other resources. They stage changes for review without committing or executing the skills. Specify a full commit and a Git project root; local modifications and conflicting paths are preserved.
+
 ## Local verification
 
 ```sh
@@ -36,3 +38,5 @@ Do not hand-maintain competing template/skill requirements here: update `recipes
 ## 中文
 
 这是 Recipkg 的可替换 Python 参考实现，存放在独立的 `recipkg/cli-source` 仓库，在主仓库的 `generated/cli-source/` 以固定提交的子模块引用。需求、规范、公开技能和示例以 [主仓库](https://github.com/recipkg/recipkg) 为准。修改配方后同步打包资源，并在本机运行测试；测试通过不等于独立重建或所有平台验收通过。
+
+`skills project add`、`list`、`update` 以固定提交的 Git 子模块管理项目完整技能，包括脚本和资源；改动会暂存以供审查，不会自动提交或运行技能。请指定完整提交及 Git 项目根目录，已有本地修改与冲突路径会保留。

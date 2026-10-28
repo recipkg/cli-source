@@ -85,6 +85,19 @@ def parser() -> argparse.ArgumentParser:
     skill_commands.add_parser("list", help="list available built-in and installed skills")
     sync = skill_commands.add_parser("sync", help="synchronize managed skills without overwriting local edits")
     sync.add_argument("--dest", type=Path, required=True, help="the chosen agent's skills directory")
+    project = skill_commands.add_parser("project", help="manage project skills as pinned Git submodules")
+    project_commands = project.add_subparsers(dest="project_command", required=True)
+    project_list = project_commands.add_parser("list", help="list project skill submodules")
+    project_list.add_argument("--project", type=Path, default=Path.cwd())
+    project_add = project_commands.add_parser("add", help="add a pinned project skill")
+    project_add.add_argument("url")
+    project_add.add_argument("--name", required=True)
+    project_add.add_argument("--rev", required=True)
+    project_add.add_argument("--project", type=Path, default=Path.cwd())
+    project_update = project_commands.add_parser("update", help="update a clean project skill to a pinned commit")
+    project_update.add_argument("name")
+    project_update.add_argument("--rev", required=True)
+    project_update.add_argument("--project", type=Path, default=Path.cwd())
     return result
 
 
@@ -260,9 +273,20 @@ def main(argv: list[str] | None = None) -> int:
             if args.skill_command == "list":
                 for name in list_skills(home):
                     print(name)
-            else:
+            elif args.skill_command == "sync":
                 names = sync_skills(home, args.dest)
                 print(f"Synchronized {len(names)} skills to {args.dest}")
+            else:
+                from .project_skills import add_project_skill, list_project_skills, update_project_skill
+                if args.project_command == "list":
+                    for name, url, rev in list_project_skills(args.project):
+                        print(f"{name}\t{rev}\t{url}")
+                elif args.project_command == "add":
+                    add_project_skill(args.project, args.url, args.name, args.rev)
+                    print(f"Added project skill {args.name}@{args.rev}")
+                else:
+                    update_project_skill(args.project, args.name, args.rev)
+                    print(f"Updated project skill {args.name}@{args.rev}")
         return 0
     except BrokenPipeError:
         return 0
